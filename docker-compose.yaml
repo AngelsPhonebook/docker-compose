@@ -1,0 +1,53 @@
+services:
+  frontend:
+    container_name: angels-phonebook-fe-app
+    hostname: angels-phonebook-fe-app
+    image: belshed/angels-phonebook-fe-app:latest
+    pull_policy: always
+    networks:
+      - gateway-network
+    depends_on:
+      - backend
+    entrypoint:
+      - npx
+      - vite
+      - preview
+    env_file:
+      - .env
+  backend:
+    container_name: angels-phonebook-be-app
+    hostname: angels-phonebook-be-app
+    image: belshed/angels-phonebook-be-app:latest
+    pull_policy: always
+    networks:
+      - gateway-network
+    volumes:
+      - ./uploads:/uploads
+    depends_on:
+      - postgres
+    entrypoint:
+      - node
+      - dist/main.js
+    env_file:
+      - .env
+  postgres:
+    image: postgres:18
+    restart: always
+    container_name: angels-phonebook-postgres
+    hostname: angels-phonebook-postgres
+    env_file:
+      - .env
+    networks:
+      - gateway-network
+    volumes:
+      - postgres:/var/lib/postgresql
+
+volumes:
+  postgres:
+    name: postgres
+
+networks:
+  gateway-network:
+    driver: bridge
+    external: true
+    name: gateway-network
