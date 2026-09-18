@@ -23,16 +23,11 @@ services:
       - gateway-network
     volumes:
       - ./uploads:/uploads
-    depends_on:
-      - postgres
     entrypoint:
       - node
       - dist/main.js
     env_file:
       - .env
-volumes:
-  postgres:
-    name: postgres
 
 networks:
   gateway-network:
