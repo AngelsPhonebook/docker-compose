@@ -30,18 +30,6 @@ services:
       - dist/main.js
     env_file:
       - .env
-  postgres:
-    image: postgres:18
-    restart: always
-    container_name: angels-shop-postgres
-    hostname: angels-shop-postgres
-    env_file:
-      - .env
-    networks:
-      - gateway-network
-    volumes:
-      - postgres:/var/lib/postgresql
-
 volumes:
   postgres:
     name: postgres
