@@ -21,8 +21,6 @@ services:
     pull_policy: always
     networks:
       - gateway-network
-    volumes:
-      - ./uploads:/uploads
     entrypoint:
       - node
       - dist/main.js
