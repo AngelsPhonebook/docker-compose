@@ -9,9 +9,11 @@ services:
     depends_on:
       - backend
     entrypoint:
-      - npx
-      - vite
-      - preview
+      - serve
+      - -s
+      - dist
+      - -l
+      - "3000"
     env_file:
       - .env
   backend:
